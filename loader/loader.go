@@ -15,9 +15,18 @@ import (
 	"github.com/tsliwowicz/go-wrk/util"
 )
 
+var USER_AGENT string
+
 const (
-	USER_AGENT = "go-wrk"
+	DEFAULT_USER_AGENT = "go-wrk"
 )
+
+func get_ua() string {
+	if USER_AGENT != "" {
+		return USER_AGENT
+	}
+	return DEFAULT_USER_AGENT
+}
 
 type LoadCfg struct {
 	duration           int //seconds
@@ -32,7 +41,7 @@ type LoadCfg struct {
 	allowRedirects     bool
 	disableCompression bool
 	disableKeepAlive   bool
-	skipVerify	 	   bool
+	skipVerify         bool
 	interrupted        int32
 	clientCert         string
 	clientKey          string
@@ -124,7 +133,7 @@ func DoRequest(httpClient *http.Client, header map[string]string, method, host, 
 		req.Header.Add(hk, hv)
 	}
 
-	req.Header.Add("User-Agent", USER_AGENT)
+	req.Header.Add("User-Agent", get_ua())
 	if host != "" {
 		req.Host = host
 	}
@@ -173,7 +182,7 @@ func (cfg *LoadCfg) RunSingleLoadSession() {
 	stats := &RequesterStats{MinRequestTime: time.Minute}
 	start := time.Now()
 
-	httpClient, err := client(cfg.disableCompression, cfg.disableKeepAlive, cfg.skipVerify, 
+	httpClient, err := client(cfg.disableCompression, cfg.disableKeepAlive, cfg.skipVerify,
 		cfg.timeoutms, cfg.allowRedirects, cfg.clientCert, cfg.clientKey, cfg.caCert, cfg.http2)
 	if err != nil {
 		log.Fatal(err)
