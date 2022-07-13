@@ -10,8 +10,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/tsliwowicz/go-wrk/loader"
-	"github.com/tsliwowicz/go-wrk/util"
+	"github.com/lavagetto/go-wrk/loader"
+	"github.com/lavagetto/go-wrk/util"
 )
 
 const APP_VERSION = "0.9"

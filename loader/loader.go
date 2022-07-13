@@ -12,7 +12,7 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/tsliwowicz/go-wrk/util"
+	"github.com/lavagetto/go-wrk/util"
 )
 
 var USER_AGENT string
